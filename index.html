@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Set Up a Local Minecraft Server with Docker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h1>Minecraft Server Guide</h1>
+    <div class="subtitle">Docker Edition</div>
+  </div>
+  <nav>
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#intro">Introduction</a></li>
+      <li><a href="#safety">Safety &amp; Precautions</a></li>
+      <li><a href="#step1">1. Open a Terminal</a></li>
+      <li><a href="#step2">2. Install Docker</a></li>
+      <li><a href="#step3">3. Create Folder</a></li>
+      <li><a href="#step4">4. Create YAML File</a></li>
+      <li><a href="#step5">5. Define Server</a></li>
+      <li><a href="#step6">6. Start Server</a></li>
+      <li><a href="#step7">7. Find Your IP</a></li>
+      <li><a href="#step8">8. Join Server</a></li>
+      <li><a href="#step9">9. Shut Down</a></li>
+      <li><a href="#troubleshooting">Troubleshooting</a></li>
+      <li><a href="#conclusion">Conclusion</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+  <div class="banner">
+    <h2>How to Set Up a Local<br>Minecraft Server with Docker</h2>
+    <p>A step-by-step guide to hosting your own 24/7 server for free</p>
+  </div>
+
+  <main>
+
+    <!-- INTRODUCTION -->
+    <section class="intro-free" id="intro">
+      <h2>Introduction</h2>
+      <p>When hosting your own Minecraft world, one of the biggest frustrations is that your friends can only play when you, the host, are signed on and in the world. Setting up a dedicated server solves this problem by keeping the world available at all times, no matter who is online. These instructions teach you how to create your own server that is available 24/7 and is completely free.</p>
+      <p>While a Minecraft server can be hosted in a number of different ways, using different configurations and tools, this document explains how to set up and run a server on a physical device running a Linux distro (such as a Raspberry Pi, or spare laptop with Ubuntu) or a device running macOS. The server will be available for anybody on your local network to join, provided they have their own copy of Minecraft Java Edition.</p>
+
+      <img class="guide-image" src="Screenshot 2026-03-30 103048.png" alt="Connecting to your Minecraft server">
+
+      <p>While it is possible to set up a server you could join from anywhere in the world, doing so comes with a jump in complexity, potential security concerns, as well as potential hosting costs. Setting up a local server is a fruitful and gratifying learning experience that gives one familiarity with tools, processes, and terminology that will lay the foundation for setting up a server on the web in the future.</p>
+      <p>Most of the work for setting up the server will be done on the terminal and the server itself will run on <strong>Docker</strong>. While macOS, Windows, and Linux all are capable of running Docker, these instructions focus on the methods of installing Docker that are specific to Linux and macOS only.</p>
+      <p>The instructions will illustrate how to install Docker, configure the server, run, and shut down the server using the terminal, as well as provide a list of precautions and warnings for running the server safely.</p>
+      <p>These instructions are designed for a reader with little to no Docker or Linux experience, and minimal experience using the terminal. Each command and configuration step will be explained in detail.</p>
+
+      <details>
+        <summary>What is Docker?</summary>
+        <div class="dropdown-content">
+          Docker is a lightweight software that packages an app and everything the app needs to run into a standardized, isolated unit called a <strong>container</strong>. A Docker container runs consistently across different computing environments, hardware, and operating systems, from a simple laptop to a powerful server computer.
+        </div>
+      </details>
+
+      <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-heading); margin: 1.5rem 0 0.5rem;">Requirements</h3>
+      <ul class="content-list">
+        <li>The device must be running a <strong>supported Linux distribution</strong>, such as Ubuntu Server, Debian, or Raspberry Pi OS 64-bit.</li>
+        <li>Alternatively, you may use a <strong>Mac running a currently supported version of macOS</strong> (macOS 12&ndash;14 on Apple Silicon chips).</li>
+        <li>Windows is not supported in these instructions, but you can find instructions for how to set up a Minecraft server on Windows elsewhere.</li>
+        <li>The device must have at least <strong>4 GB of RAM</strong> available &mdash; this is the minimum to ensure smooth multiplayer gameplay on a Java Minecraft server.</li>
+        <li>The device must be <strong>connected to a local network</strong> via Wi-Fi or Ethernet (Ethernet recommended for stability).</li>
+        <li>We recommend using a device that you plan to only use for this purpose, as running a server can require a significant amount of your computer's resources and make it difficult to perform other tasks at the same time.</li>
+      </ul>
+    </section>
+
+    <!-- SAFETY -->
+    <section class="step safety" id="safety">
+      <div class="step-header">
+        <span class="step-number">!</span>
+        <h2>Safety and Precautions</h2>
+      </div>
+      <div class="step-body">
+        <p>This setup is designed for a <strong>local network environment only</strong>. While there are safe methods to connect the server to the broader internet, those techniques fall outside the scope of these instructions and require additional considerations. <strong>Exposing ports directly to the public internet without proper safeguards can compromise not just your server, but potentially all devices connected to your network!</strong></p>
+        <p>Be sure to keep your device's OS and Docker installation updated to reduce the likelihood of failure and vulnerability. (Please refer to Docker's online documentation for device and installation-specific ways to update the software.)</p>
+        <p>Regularly back up the Minecraft data folder (<code>minecraft-java-data</code>) to another storage location or external drive, so that you can recover your worlds and configuration if the device fails or storage becomes corrupted.</p>
+        <p>Avoid using a personal device as a large server platform. The server described in these instructions is best used in small, local network applications with up to 10&ndash;15 players, but its limited CPU and RAM may cause lag or crashes with too many players, plugins, or mods.</p>
+        <p>Finally, remember that the EULA environment variable exists to ensure you are following Mojang's licensing terms, so use it only in ways that comply with the official Minecraft license.</p>
+      </div>
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="step" id="step1">
+      <div class="step-header">
+        <span class="step-number">1</span>
+        <h2>Open a Terminal and Log In</h2>
+      </div>
+      <div class="step-body">
+        <p>Open the terminal on the machine you wish to install the server on.</p>
+
+        <img class="guide-image" src="1 - The Terminal.png" alt="A terminal window">
+
+        <div class="os-toggle">
+          <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
+          <button onclick="switchGlobalOS('mac')">macOS</button>
+        </div>
+
+        <div class="os-content linux active">
+          <p>You may do this one of two ways:</p>
+
+          <p><strong>On the physical device</strong> (Recommended if your Linux device has a keyboard and screen)<br>
+          Open a terminal directly on your Linux device by launching the terminal application from the system's desktop or console interface. For some distros, this can be done with <code>Ctrl+Alt+T</code>.</p>
+
+          <p><strong>Via SSH</strong> (If your Linux device does not have a keyboard and screen)<br>
+          From another machine on the same network, use a device with SSH installed to connect to the Linux device; macOS, most Linux distros, and Windows should have this command line tool installed by default.</p>
+
+          <p>Open a terminal on another machine (see above for Linux, see below for Mac, and for Windows press <code>Windows Key+R</code>, type <code>cmd</code>, then press Enter) and run:</p>
+
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>ssh &lt;username&gt;@&lt;device-ip&gt;</code></pre>
+          </div>
+
+          <p>Replace <code>&lt;username&gt;</code> with your Linux account name, and <code>&lt;device-ip&gt;</code> with the server device's local IP address.</p>
+
+          <div class="info-box tip">
+            <strong>Tip</strong>
+            If you haven't identified the server device's IP address yet, skip ahead to <a href="#step7" style="color: var(--xp-green);">Step 7</a> to learn how to find it directly on the device itself.
+          </div>
+
+          <p>Once connected, run all commands in the remote terminal session, as the rest of the process is the same as working directly on the device.</p>
+
+          <details>
+            <summary>What's SSH?</summary>
+            <div class="dropdown-content">
+              SSH stands for "Secure Shell." It's a way to connect to a computer and execute commands on it by typing them into your own computer. If you don't know what this is, that's OK. You can just access the terminal via the physical device by attaching a keyboard and display.
+            </div>
+          </details>
+        </div>
+
+        <div class="os-content mac">
+          <ul class="content-list">
+            <li>Open <strong>Finder</strong></li>
+            <li>Scroll down until you find <strong>Utilities</strong>, and open the folder</li>
+            <li>Launch <strong>Terminal</strong></li>
+          </ul>
+          <p><em>OR</em></p>
+          <ul class="content-list">
+            <li>Open Spotlight Search (<code>Cmd + Space</code>)</li>
+            <li>Type <code>Terminal</code></li>
+            <li>It will be the top result (Terminal.app)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step" id="step2">
+      <div class="step-header">
+        <span class="step-number">2</span>
+        <h2>Install Docker</h2>
+      </div>
+      <div class="step-body">
+
+        <div class="os-toggle">
+          <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
+          <button onclick="switchGlobalOS('mac')">macOS</button>
+        </div>
+
+        <div class="os-content linux active">
+          <p>Type the following into the terminal to download Docker's install script:</p>
+
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>curl -L https://get.docker.com -o get-docker.sh</code></pre>
+          </div>
+
+          <details>
+            <summary>Breakdown</summary>
+            <div class="dropdown-content">
+              <ul class="cmd-explain" style="margin: 0;">
+                <li><code>curl</code> is a tool that pulls content from a web address. The <code>-L</code> option says, "If you get redirected when you go to this website, go where you're sent."</li>
+                <li><code>https://get.docker.com</code> is the URL that curl goes to.</li>
+                <li>The <code>-o</code> option tells curl to save the script to a file named <code>get-docker.sh</code> in the folder you run this command in.</li>
+              </ul>
+            </div>
+          </details>
+
+          <p>After the script finishes downloading, run it to install Docker:</p>
+
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>sudo sh get-docker.sh</code></pre>
+          </div>
+
+          <details>
+            <summary>Breakdown</summary>
+            <div class="dropdown-content">
+              <ul class="cmd-explain" style="margin: 0;">
+                <li><code>sudo</code> tells the terminal to run whatever comes next with administrator-level permissions; we need this to install software.</li>
+                <li><code>sh</code> tells the terminal to execute a script.</li>
+                <li><code>get-docker.sh</code> is the script you just downloaded to install Docker to the device.</li>
+              </ul>
+            </div>
+          </details>
+
+          <p>Once the script finishes executing, Docker will be installed and ready to configure.</p>
+        </div>
+
+        <div class="os-content mac">
+          <ol class="ordered-list">
+            <li>Head over to <a href="https://docs.docker.com/desktop/setup/install/mac-install/" target="_blank" style="color: var(--diamond-blue);">docs.docker.com/desktop/setup/install/mac-install/</a> and download the package.
+              <img class="guide-image" src="2.1 Download Docker.png" alt="Docker Desktop download page">
+            </li>
+            <li>Once it's downloaded, double click the disk image, then drag and drop it into the Applications folder.
+              <img class="guide-image" src="2.2 Docker App.png" alt="Docker drag and drop install">
+            </li>
+            <li>Open the application through Finder's Application folder OR through Spotlight Search (<code>Cmd + Space</code>) by typing <code>Docker</code>.</li>
+            <li>The Docker engine will start up and ask for permissions. You'll need to give the app the permissions it requests.</li>
+            <li>Once the app has been opened and permissions granted, we can do the rest in the terminal. Close the app.</li>
+          </ol>
+
+          <details>
+            <summary>Note on Docker</summary>
+            <div class="dropdown-content">
+              Docker runs in the background on your computer. Background applications may not have any indication they are running, but they are still consuming your system's resources. This behavior is useful to keep your server running while doing other things, but it is important to be aware of what is running and when. After you start Docker, if you do not want it continuously taking up resources on your device, make sure you turn it off by following the instructions in Step 9 when you are done using it.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step" id="step3">
+      <div class="step-header">
+        <span class="step-number">3</span>
+        <h2>Create a Minecraft-Docker Project Folder</h2>
+      </div>
+      <div class="step-body">
+        <p>Now, we'll create a folder to store Docker information for the Minecraft server. This keeps the server's files organized, and makes it easy to back up or move the server to a different device later.</p>
+
+        <p>Create the folder and enter it by entering the following in the terminal:</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="label">Terminal</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>mkdir ~/minecraft-docker; cd ~/minecraft-docker</code></pre>
+        </div>
+
+        <details>
+          <summary>Breakdown</summary>
+          <div class="dropdown-content">
+            <ul class="cmd-explain" style="margin: 0;">
+              <li><code>mkdir</code> is the command for "make directory." A directory is the same thing as a folder. This command creates a directory named <code>minecraft-docker</code> in your device's home folder, denoted by the tilde (<code>~</code>).</li>
+              <li>You can specify any location for this folder that you would like after the <code>mkdir</code> command, but we will use the home folder here for simplicity's sake.</li>
+              <li>If you name it something else, use that directory's path, which you can find using <code>pwd</code> (print working directory) every time you see <code>~/minecraft-docker</code>.</li>
+              <li><code>cd</code> is the command for "change directory." This changes your current working directory in the terminal to that folder, so all the following changes will be made there. You can tell which directory you are currently in by looking at the end of the terminal prompt, where you type things in. At this point it should end with <code>~/minecraft-docker$</code>.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step" id="step4">
+      <div class="step-header">
+        <span class="step-number">4</span>
+        <h2>Create the docker-compose.yml File</h2>
+      </div>
+      <div class="step-body">
+        <p>Docker requires instructions that are provided by specialized text files known as YAML (<code>.yml</code>) files. We'll create one of those and load it with instructions for Docker on how to set up and run the server.</p>
+
+        <p>These configuration instructions can be adjusted to change the settings of your server, but we'll tell you what to write to get a standard server started.</p>
+
+        <p>Create the YAML file by entering the following into the terminal:</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="label">Terminal</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>nano docker-compose.yml</code></pre>
+        </div>
+
+        <img class="guide-image" src="5.1 Nano.png" alt="An empty nano editor window">
+
+        <details>
+          <summary>Breakdown</summary>
+          <div class="dropdown-content">
+            <ul class="cmd-explain" style="margin: 0;">
+              <li><code>nano</code> is the command to start nano: a terminal-based text-editing software that comes standard with most Linux distributions and macOS.</li>
+              <li><code>docker-compose.yml</code> is the name of the file you'd like to create. nano will make the file in the terminal's current directory.</li>
+              <li>In Step 3, you changed the current directory to <code>~/minecraft-docker</code>, so this is the location of your <code>docker-compose.yml</code> file.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>What's YAML?</summary>
+          <div class="dropdown-content">
+            YAML files are just specially formatted plain text files. Programs will often use these to store settings. They're favored because they're easy to read and write.
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step" id="step5">
+      <div class="step-header">
+        <span class="step-number">5</span>
+        <h2>Define the Minecraft Server</h2>
+      </div>
+      <div class="step-body">
+        <p>You should now see an empty nano window in your terminal. Copy and paste the following code to define a standard Java Minecraft server:</p>
+
+        <div class="info-box warning">
+          <strong>Indentation matters!</strong>
+          YAML files are whitespace-sensitive. Match the spacing exactly as shown below.
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="label">docker-compose.yml</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>services:
+  minecraft-java:
+    image: itzg/minecraft-server
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+    volumes:
+      - ./minecraft-java-data:/data
+    restart: unless-stopped</code></pre>
+        </div>
+
+        <details>
+          <summary>What does each line do?</summary>
+          <div class="dropdown-content">
+            <ul class="cmd-explain" style="margin: 0;">
+              <li><code>services:</code> organizes a list of the containers to run.</li>
+              <li><code>minecraft-java:</code> is the name of the service being defined. You could name this differently to differentiate between other server images if you make more than one.</li>
+              <li><code>image: itzg/minecraft-server</code> tells Docker to pull the Minecraft Java server image from Docker Hub. This image file has everything Docker needs to run the server: Java, startup code, and other server instructions. It has been made publicly accessible to Docker users.</li>
+              <li><code>ports: 25565:25565</code> publishes the server's Java port (25565) on the device so clients on the local network can connect. In other words, this defines a location that can be found by other players when connecting to the server.</li>
+              <li><code>environment:</code> is the section for environment variables that the container will use.</li>
+              <li><code>EULA: "TRUE"</code> sets Minecraft's EULA (End-User License Agreement) to be accepted. Without this, the server will refuse to start.</li>
+              <li><code>volumes:</code> is the section where Docker is told where to look for relevant data.</li>
+              <li><code>- ./minecraft-java-data:/data</code> maps the <code>minecraft-java-data</code> folder on your device to the <code>/data</code> directory inside the container. This is where the server stores world data, server properties, and other files.</li>
+              <li><code>restart: unless-stopped</code> tells Docker to automatically restart the container if it crashes or the device reboots. You can change this to <code>no</code> if you'd like it to only start up when you initiate it manually.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p>After pasting the content, save the file:</p>
+        <ol class="ordered-list">
+          <li>Press <code>Ctrl+X</code> to exit the file</li>
+          <li>Press <code>Y</code> to accept the changes, when prompted</li>
+          <li>Press <code>Enter</code> to finalize all changes and exit</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- STEP 6 -->
+    <section class="step" id="step6">
+      <div class="step-header">
+        <span class="step-number">6</span>
+        <h2>Start the Minecraft Server</h2>
+      </div>
+      <div class="step-body">
+        <p>To start the Minecraft Java server container in the background of the device, type the following command in the terminal:</p>
+
+        <div class="os-toggle">
+          <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
+          <button onclick="switchGlobalOS('mac')">macOS</button>
+        </div>
+
+        <div class="os-content linux active">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>sudo docker compose up -d</code></pre>
+          </div>
+        </div>
+
+        <div class="os-content mac">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>docker compose up -d</code></pre>
+          </div>
+        </div>
+
+        <div class="info-box note">
+          <strong>Note</strong>
+          This command can take anywhere from a few seconds to a few minutes to run. Wait for the process to complete and do not interfere with the terminal during this time.
+        </div>
+
+        <details>
+          <summary>Breakdown</summary>
+          <div class="dropdown-content">
+            <ul class="cmd-explain" style="margin: 0;">
+              <li><code>sudo</code> runs the command with administrator privileges (Linux only).</li>
+              <li><code>docker compose</code> tells Docker to look for the compose file created in Steps 4&ndash;5.</li>
+              <li><code>up</code> starts the service defined in <code>docker-compose.yml</code>.</li>
+              <li><code>-d</code> runs the container in detached mode (in the background), so you can keep using the terminal.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p>On the first run, Docker will automatically download the <code>itzg/minecraft-server</code> image from Docker Hub, if it is not already on the device. Once the image is pulled, Docker will create a container, download the Minecraft server files, and start the server process.</p>
+
+        <h3>Verify the Server is Running</h3>
+        <p>Type the following to ensure the Minecraft server is running:</p>
+
+        <div class="os-toggle">
+          <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
+          <button onclick="switchGlobalOS('mac')">macOS</button>
+        </div>
+
+        <div class="os-content linux active">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>sudo docker ps</code></pre>
+          </div>
+        </div>
+
+        <div class="os-content mac">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>docker ps</code></pre>
+          </div>
+        </div>
+
+        <details>
+          <summary>Breakdown</summary>
+          <div class="dropdown-content">
+            <ul class="cmd-explain" style="margin: 0;">
+              <li><code>ps</code> is "process status," and it shows all running Docker processes. You'll see your Minecraft server running here if you've followed the directions carefully!</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- STEP 7 -->
+    <section class="step" id="step7">
+      <div class="step-header">
+        <span class="step-number">7</span>
+        <h2>Find Your Server's IP Address</h2>
+      </div>
+      <div class="step-body">
+        <p>You'll need to find your server's address for your friends to join before play.</p>
+        <p>The address of your server consists of two elements: the <strong>IP address</strong> of the device your server is running on, and the <strong>port</strong> number <code>25565</code> (as defined in Step 5).</p>
+        <p>Find the device IP address (your computer's address on the network, usually represented by a string of numbers, like <code>192.168.1.100</code>) by typing the following into the terminal:</p>
+
+        <div class="os-toggle">
+          <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
+          <button onclick="switchGlobalOS('mac')">macOS</button>
+        </div>
+
+        <div class="os-content linux active">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>hostname -I</code></pre>
+          </div>
+          <ul class="cmd-explain">
+            <li><code>hostname -I</code> prints the network IP addresses of the device.</li>
+          </ul>
+        </div>
+
+        <div class="os-content mac">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>ipconfig getifaddr en0</code></pre>
+          </div>
+          <ul class="cmd-explain">
+            <li><code>ipconfig getifaddr en0</code> prints the local network IP address of your Mac's primary network interface.</li>
+          </ul>
+        </div>
+
+        <p>Write down the IP address or copy/paste it somewhere for future reference.</p>
+
+        <details>
+          <summary>What's a port?</summary>
+          <div class="dropdown-content">
+            A port is like a virtual door on your computer that directs network traffic to a specific app. Port 25565 is the default port for Minecraft servers.
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- STEP 8 -->
+    <section class="step" id="step8">
+      <div class="step-header">
+        <span class="step-number">8</span>
+        <h2>Join the Server From Your Local Network</h2>
+      </div>
+      <div class="step-body">
+        <p>On a separate device running Minecraft Java Edition <strong>on the same network</strong>:</p>
+        <ol class="ordered-list">
+          <li>Open Minecraft Java.</li>
+          <li>Click <strong>Multiplayer</strong>.
+            <img class="guide-image" src="empty server page.png" alt="Minecraft multiplayer screen">
+          </li>
+          <li>Click <strong>Add Server</strong>.</li>
+          <li>In the <strong>Server Address</strong> field, type the IP address of your device followed by <code>:25565</code><br>(e.g., <code>192.168.1.100:25565</code>).
+            <img class="guide-image" src="Screenshot 2026-03-30 103048.png" alt="Minecraft Add Server screen">
+          </li>
+          <li>Click <strong>Done</strong>, then <strong>Join Server</strong>.</li>
+        </ol>
+        <p>If everything was done correctly, the account should connect to your locally hosted Minecraft server over the same network. Your Minecraft character is now alone in the wilderness, ready to find your friends and have an adventure!</p>
+      </div>
+    </section>
+
+    <!-- STEP 9 -->
+    <section class="step" id="step9">
+      <div class="step-header">
+        <span class="step-number">9</span>
+        <h2>Shutting Down the Server</h2>
+      </div>
+      <div class="step-body">
+        <div class="info-box note">
+          <strong>Note</strong>
+          If you are hosting the server on your personal computer, it is good practice to shut it down when you are done playing. Allowing a busy server to continue running in the background can consume a significant amount of your machine's computational resources.
+        </div>
+
+        <p>To stop the server while keeping its configuration and data, enter the following into the server device's terminal to shut the server off without risking any loss of data in your Minecraft world:</p>
+
+        <div class="os-toggle">
+          <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
+          <button onclick="switchGlobalOS('mac')">macOS</button>
+        </div>
+
+        <div class="os-content linux active">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>cd ~/minecraft-docker; sudo docker compose stop</code></pre>
+          </div>
+        </div>
+
+        <div class="os-content mac">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>cd ~/minecraft-docker; docker compose stop</code></pre>
+          </div>
+        </div>
+
+        <details>
+          <summary>Breakdown</summary>
+          <div class="dropdown-content">
+            <ul class="cmd-explain" style="margin: 0;">
+              <li><code>cd ~/minecraft-docker</code> changes the current directory to the location of the <code>docker-compose.yml</code> file. This should be the same directory you set the server up in, so if you changed it there, change it here too.</li>
+              <li><code>(sudo) docker compose stop</code> tells the <code>docker-compose.yml</code> file in the current directory to stop all Docker container operations, including the active Minecraft server.</li>
+            </ul>
+          </div>
+        </details>
+
+        <h3>Starting it back up</h3>
+        <p>To turn the server back on, you may either turn the host device off and on again (recall that in Step 5, the restart variable was set to <code>restart: unless-stopped</code> &mdash; this means power cycling the device will start the server when the device restarts), or enter the following into the terminal:</p>
+
+        <div class="os-toggle">
+          <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
+          <button onclick="switchGlobalOS('mac')">macOS</button>
+        </div>
+
+        <div class="os-content linux active">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>cd ~/minecraft-docker; sudo docker compose start</code></pre>
+          </div>
+        </div>
+
+        <div class="os-content mac">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>cd ~/minecraft-docker; docker compose start</code></pre>
+          </div>
+        </div>
+
+        <details>
+          <summary>Breakdown</summary>
+          <div class="dropdown-content">
+            <ul class="cmd-explain" style="margin: 0;">
+              <li><code>(sudo) docker compose start</code> tells the <code>docker-compose.yml</code> file in the current directory to activate all Docker container operations, including the Minecraft server.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- TROUBLESHOOTING -->
+    <section class="step troubleshooting" id="troubleshooting">
+      <div class="step-header">
+        <span class="step-number">?</span>
+        <h2>Troubleshooting</h2>
+      </div>
+      <div class="step-body">
+        <div class="info-box warning">
+          <strong>General Advice</strong>
+          The most important piece of troubleshooting advice is to be exact. The commands, configuration file (.yaml), and instructions must be followed exactly. There is no "close enough" in this process!
+        </div>
+
+        <h3>Nothing appears when you check if the server is running (Step 6)</h3>
+        <p>Check that you are in the <code>~/minecraft-docker</code> directory and rerun:</p>
+
+        <div class="os-toggle">
+          <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
+          <button onclick="switchGlobalOS('mac')">macOS</button>
+        </div>
+
+        <div class="os-content linux active">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>sudo docker compose up -d</code></pre>
+          </div>
+        </div>
+
+        <div class="os-content mac">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="label">Terminal</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>docker compose up -d</code></pre>
+          </div>
+        </div>
+
+        <p>If this does not work, check to see if the compose file has an error. Open the <code>docker-compose.yml</code> file using this command:</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="label">Terminal</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>nano docker-compose.yml</code></pre>
+        </div>
+
+        <p>and confirm indentation and content match the text given in Step 5.</p>
+
+        <h3>Docker itself is not working ("command not found")</h3>
+        <p>Verify Docker is installed and running by re-running the Docker install script (Step 2) and then trying the <code>docker ps</code> command again (<code>sudo docker ps</code> on Linux). Return to Step 6 and repeat the startup and verification steps until <code>docker ps</code> shows a running <code>minecraft-java</code> container.</p>
+      </div>
+    </section>
+
+    <!-- CONCLUSION -->
+    <section class="intro-box conclusion" id="conclusion">
+      <div class="intro-box-header">
+        <h2>Conclusion</h2>
+      </div>
+      <div class="intro-box-body">
+        <p>Congratulations! You've successfully created and tested your own Minecraft server! Celebrate by inviting friends to join and enjoy your world together. If you'd like to expand your server's capabilities, try exploring options like:</p>
+        <ul class="content-list">
+          <li>Setting up a Tailscale VPN to give your server a secure, shareable IP address for remote access.</li>
+          <li>Downloading a pre-made world, like the Uncensored Library.</li>
+          <li>Adding mods to your server to customize gameplay and introduce new features.</li>
+          <li>Automating server backups to protect your world and keep progress safe.</li>
+        </ul>
+        <p style="margin-top: 1rem;">Or feel free to keep the server as it is. Regardless, you have now set up your own Minecraft server and learned some technical skills along the way!</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Minecraft Server Setup Guide</p>
+  </footer>
+
+</div>
+
+<script>
+function copyCode(button) {
+  const codeBlock = button.closest('.code-block');
+  const code = codeBlock.querySelector('code').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    button.textContent = 'Copied!';
+    button.classList.add('copied');
+    setTimeout(() => {
+      button.textContent = 'Copy';
+      button.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function switchGlobalOS(os) {
+  // Update ALL toggle buttons across the page
+  document.querySelectorAll('.os-toggle').forEach(toggle => {
+    toggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    if (os === 'linux') {
+      toggle.children[0].classList.add('active');
+    } else {
+      toggle.children[1].classList.add('active');
+    }
+  });
+
+  // Update ALL os-content panels across the entire page
+  document.querySelectorAll('.os-content').forEach(panel => {
+    panel.classList.remove('active');
+    if ((os === 'linux' && panel.classList.contains('linux')) ||
+        (os === 'mac' && panel.classList.contains('mac'))) {
+      panel.classList.add('active');
+    }
+  });
+}
+</script>
+
+</body>
+</html>
