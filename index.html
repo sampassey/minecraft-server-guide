@@ -747,7 +747,7 @@ function switchGlobalOS(os) {
 }
 
 // Collapsible sections
-document.addEventListener('DOMContentLoaded', () => {
+(function() {
   // Wrap intro-free content in a collapsible div
   const introFree = document.querySelector('.intro-free');
   if (introFree) {
@@ -760,7 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
     introFree.appendChild(introBody);
     const introIcon = document.createElement('span');
     introIcon.className = 'section-toggle-icon';
-    introIcon.textContent = '▾';
+    introIcon.textContent = '\u25be';
     h2.appendChild(introIcon);
     h2.addEventListener('click', () => {
       introFree.classList.toggle('section-collapsed');
@@ -771,13 +771,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.step-header, .intro-box-header').forEach(header => {
     const icon = document.createElement('span');
     icon.className = 'section-toggle-icon';
-    icon.textContent = '▾';
+    icon.textContent = '\u25be';
     header.appendChild(icon);
     header.addEventListener('click', () => {
       header.closest('section').classList.toggle('section-collapsed');
     });
   });
-});
+})();
 </script>
 
 </body>
