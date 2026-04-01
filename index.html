@@ -47,20 +47,20 @@
     <!-- INTRODUCTION -->
     <section class="intro-free" id="intro">
       <h2>Introduction</h2>
-      <p>When hosting your own Minecraft world, one of the biggest frustrations is that your friends can only play when you, the host, are signed on and in the world. Setting up a dedicated server solves this problem by keeping the world available at all times, no matter who is online. These instructions teach you how to create your own server that is available 24/7 and is completely free.</p>
-      <p>While a Minecraft server can be hosted in a number of different ways, using different configurations and tools, this document explains how to set up and run a server on a physical device running a Linux distro (such as a Raspberry Pi, or spare laptop with Ubuntu) or a device running macOS. The server will be available for anybody on your local network to join, provided they have their own copy of Minecraft Java Edition.</p>
+      <p>When hosting your own Minecraft world, one of the biggest frustrations is that your friends can only play when you, the host, are signed on and in the world and have opened the world to your Local Area Network (LAN). Setting up a dedicated server solves this problem by keeping the world available at all times, no matter who is online. These instructions teach you how to create your own server that is available 24/7 and is completely free.</p>
+      <p>While a Minecraft server can be hosted in a number of different ways, this document explains how to set up and run a server on a physical device running a Linux distro (such as a Raspberry Pi, or spare laptop with Ubuntu) or a device running macOS. The server will be available for anybody on your local network to join, provided they have their own copy of Minecraft Java Edition.</p>
 
       <img class="guide-image" src="Screenshot 2026-03-30 103048.png" alt="Connecting to your Minecraft server">
 
-      <p>While it is possible to set up a server you could join from anywhere in the world, doing so comes with a jump in complexity, potential security concerns, as well as potential hosting costs. Setting up a local server is a fruitful and gratifying learning experience that gives one familiarity with tools, processes, and terminology that will lay the foundation for setting up a server on the web in the future.</p>
-      <p>Most of the work for setting up the server will be done on the terminal and the server itself will run on <strong>Docker</strong>. While macOS, Windows, and Linux all are capable of running Docker, these instructions focus on the methods of installing Docker that are specific to Linux and macOS only.</p>
+      <p>Setting up a server you could join from anywhere in the world is beyond the scope of these instructions, as doing so comes with a jump in complexity, potential security concerns, as well as potential hosting costs. However, learning how to host a local server can give one the familiarity with the foundational tools, concepts, and terminology for hosting more sophisticated server on the web in the future. </p>
+      <p>Most of the work for setting up the server will be done on the terminal and the server itself will run on software called <strong>Docker</strong>. While macOS, Windows, and Linux all are capable of running Docker, these instructions focus on the methods of installing Docker that are specific to Linux and macOS only.</p>
       <p>The instructions will illustrate how to install Docker, configure the server, run, and shut down the server using the terminal, as well as provide a list of precautions and warnings for running the server safely.</p>
       <p>These instructions are designed for a reader with little to no Docker or Linux experience, and minimal experience using the terminal. Each command and configuration step will be explained in detail.</p>
 
       <details>
         <summary>What is Docker?</summary>
         <div class="dropdown-content">
-          Docker is a lightweight software that packages an app and everything the app needs to run into a standardized, isolated unit called a <strong>container</strong>. A Docker container runs consistently across different computing environments, hardware, and operating systems, from a simple laptop to a powerful server computer.
+          Docker is a lightweight software that packages an app (such as a Minecraft server) and everything the app needs to run into a standardized, isolated unit called a <strong>container</strong>. A Docker container runs consistently across different computing environments, hardware, and operating systems, from a simple laptop to a powerful server computer.
         </div>
       </details>
 
@@ -135,7 +135,7 @@
           <p>Once connected, run all commands in the remote terminal session, as the rest of the process is the same as working directly on the device.</p>
 
           <details>
-            <summary>What's SSH?</summary>
+            <summary>What is SSH?</summary>
             <div class="dropdown-content">
               SSH stands for "Secure Shell." It's a way to connect to a computer and execute commands on it by typing them into your own computer. If you don't know what this is, that's OK. You can just access the terminal via the physical device by attaching a keyboard and display.
             </div>
