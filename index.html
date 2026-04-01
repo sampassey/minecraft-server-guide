@@ -47,7 +47,7 @@
     <!-- INTRODUCTION -->
     <section class="intro-free" id="intro">
       <h2>Introduction</h2>
-      <p>When hosting your own Minecraft world, one of the biggest frustrations is that your friends can only play when you, the host, are signed on, are in the world and have opened the world to your Local Area Network (LAN). Setting up a dedicated server solves this problem by keeping the world available at all times, no matter who is online. These instructions teach you how to create your own server that is available 24/7 and is completely free.</p>
+      <p>When hosting your own Minecraft world, one of the biggest frustrations is that your friends can only play when you, the host, are signed on and in the world and have opened the world to your Local Area Network (LAN). Setting up a dedicated server solves this problem by keeping the world available at all times, no matter who is online. These instructions teach you how to create your own server that is available 24/7 and is completely free.</p>
       <p>While a Minecraft server can be hosted in a number of different ways, this document explains how to set up and run a server on a physical device running a Linux distro (such as a Raspberry Pi, or spare laptop with Ubuntu) or a device running macOS. The server will be available for anybody on your local network to join, provided they have their own copy of Minecraft Java Edition.</p>
 
       <img class="guide-image" src="Screenshot 2026-03-30 103048.png" alt="Connecting to your Minecraft server">
@@ -282,7 +282,7 @@
       <div class="step-body">
         <p>Docker requires instructions that are provided by specialized text files known as YAML (<code>.yml</code>) files. We'll create one of those and load it with instructions for Docker on how to set up and run the server.</p>
 
-        <p>These configuration instructions can be adjusted to change the settings of your server, but these instructions will provide the standard boilerplate code to get a simple server started.</p>
+        <p>These configuration instructions can be adjusted to change the settings of your server, but we'll tell you what to write to get a standard server started.</p>
 
         <p>Create the YAML file by entering the following into the terminal:</p>
 
@@ -745,39 +745,6 @@ function switchGlobalOS(os) {
     }
   });
 }
-
-// Collapsible sections
-(function() {
-  // Wrap intro-free content in a collapsible div
-  const introFree = document.querySelector('.intro-free');
-  if (introFree) {
-    const h2 = introFree.querySelector('h2');
-    const introBody = document.createElement('div');
-    introBody.className = 'intro-body';
-    while (h2.nextSibling) {
-      introBody.appendChild(h2.nextSibling);
-    }
-    introFree.appendChild(introBody);
-    const introIcon = document.createElement('span');
-    introIcon.className = 'section-toggle-icon';
-    introIcon.textContent = '\u25be';
-    h2.appendChild(introIcon);
-    h2.addEventListener('click', () => {
-      introFree.classList.toggle('section-collapsed');
-    });
-  }
-
-  // Step headers and intro-box headers
-  document.querySelectorAll('.step-header, .intro-box-header').forEach(header => {
-    const icon = document.createElement('span');
-    icon.className = 'section-toggle-icon';
-    icon.textContent = '\u25be';
-    header.appendChild(icon);
-    header.addEventListener('click', () => {
-      header.closest('section').classList.toggle('section-collapsed');
-    });
-  });
-})();
 </script>
 
 </body>
