@@ -32,7 +32,8 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--bg-primary);
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('stone.jpeg') repeat;
+  background-size: auto, 96px 96px;
   color: var(--text-primary);
   line-height: 1.7;
   font-size: 15px;
@@ -479,8 +480,12 @@ details .dropdown-content {
 .safety .step-header { background: var(--redstone-red); }
 .troubleshooting .step-header { background: var(--gold-yellow); }
 .troubleshooting .step-header h2 { color: var(--bedrock); }
-.conclusion .intro-box-header { background: var(--xp-green); }
+.introduction .intro-box-header { background: var(--grass-green); }
+.introduction .intro-box-header h2 { color: #fff; }
+.introduction a { color: var(--diamond-blue); }
+.conclusion .intro-box-header { background: var(--grass-top); }
 .conclusion .intro-box-header h2 { color: var(--bedrock); }
+.conclusion a { color: var(--diamond-blue); }
 
 /* === COLLAPSIBLE SECTIONS === */
 .step-header,

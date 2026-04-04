@@ -45,17 +45,20 @@
   <main>
 
     <!-- INTRODUCTION -->
-    <section class="intro-free" id="intro">
-      <h2>Introduction</h2>
-      <p>When hosting your own Minecraft world, one of the biggest frustrations is that your friends can only play when you, the host, are signed on, are in the world and have opened the world to your Local Area Network (LAN). Setting up a dedicated server solves this problem by keeping the world available at all times, no matter who is online. These instructions teach you how to create your own server that is available 24/7 and is completely free.</p>
-      <p>While a Minecraft server can be hosted in a number of different ways, this document explains how to set up and run a server on a physical device running a Linux distro (such as a Raspberry Pi, or spare laptop with Ubuntu) or a device running macOS. The server will be available for anybody on your local network to join, provided they have their own copy of Minecraft Java Edition.</p>
+    <section class="intro-box introduction" id="intro">
+      <div class="intro-box-header">
+        <h2>Introduction</h2>
+      </div>
+      <div class="intro-box-body">
+      <p>When hosting your own Minecraft world, one of the biggest frustrations is that your friends can only play when you, the host, are signed on and in the world. Setting up a dedicated server solves this problem by keeping the world available at all times, no matter who is online. These instructions show how to create your own server, available 24/7 and completely free.</p>
+      <p>While a Minecraft server can be hosted in a number of different ways, this document explains how to set up and run a server on a physical device running a Linux distro (such as a Raspberry Pi, or spare laptop with Ubuntu) or on a Mac. The server will be available for anybody on your local network to join, provided they have their own copy of Minecraft Java Edition.</p>
 
       <img class="guide-image" src="Screenshot 2026-03-30 103048.png" alt="Connecting to your Minecraft server">
 
-      <p>Setting up a server you could join from anywhere in the world is beyond the scope of these instructions, as doing so comes with a jump in complexity, potential security concerns, as well as potential hosting costs. However, learning how to host a local server can give one the familiarity with the foundational tools, concepts, and terminology for hosting more sophisticated server on the web in the future. </p>
+      <p>Setting up a server you could join from anywhere in the world is beyond the scope of these instructions, as doing so comes with a jump in complexity, security concerns, as well as potential hosting costs. However, learning how to host a local server can provide the familiarity with the foundational tools, concepts, and terminology for hosting a more sophisticated server on the web in the future. </p>
       <p>Most of the work for setting up the server will be done on the terminal and the server itself will run on software called <strong>Docker</strong>. While macOS, Windows, and Linux all are capable of running Docker, these instructions focus on the methods of installing Docker that are specific to Linux and macOS only.</p>
       <p>The instructions will illustrate how to install Docker, configure the server, run, and shut down the server using the terminal, as well as provide a list of precautions and warnings for running the server safely.</p>
-      <p>These instructions are designed for a reader with little to no Docker or Linux experience, and minimal experience using the terminal. Each command and configuration step will be explained in detail.</p>
+      <p>These instructions were written for someone interested in setting up their very first minecraft server. While experience executing commands from your terminal or working with Docker is helpful, it is not required. </p>
 
       <details>
         <summary>What is Docker?</summary>
@@ -68,11 +71,12 @@
       <ul class="content-list">
         <li>The device must be running a <strong>supported Linux distribution</strong>, such as Ubuntu Server, Debian, or Raspberry Pi OS 64-bit.</li>
         <li>Alternatively, you may use a <strong>Mac running a currently supported version of macOS</strong> (macOS 12&ndash;14 on Apple Silicon chips).</li>
-        <li>Windows is not supported in these instructions, but you can find instructions for how to set up a Minecraft server on Windows elsewhere.</li>
+        <li>Windows is not supported in these instructions, but you can find instructions for how to set up a Minecraft server on Windows <a href="https://minecraft.fandom.com/wiki/Tutorials/Setting_up_a_server#Windows_instructions" target="_blank">elsewhere</a>.</li>
         <li>The device must have at least <strong>4 GB of RAM</strong> available &mdash; this is the minimum to ensure smooth multiplayer gameplay on a Java Minecraft server.</li>
         <li>The device must be <strong>connected to a local network</strong> via Wi-Fi or Ethernet (Ethernet recommended for stability).</li>
         <li>We recommend using a device that you plan to only use for this purpose, as running a server can require a significant amount of your computer's resources and make it difficult to perform other tasks at the same time.</li>
       </ul>
+      </div>
     </section>
 
     <!-- SAFETY -->
@@ -82,11 +86,13 @@
         <h2>Safety and Precautions</h2>
       </div>
       <div class="step-body">
-        <p>This setup is designed for a <strong>local network environment only</strong>. While there are safe methods to connect the server to the broader internet, those techniques fall outside the scope of these instructions and require additional considerations. <strong>Exposing ports directly to the public internet without proper safeguards can compromise not just your server, but potentially all devices connected to your network!</strong></p>
-        <p>Be sure to keep your device's OS and Docker installation updated to reduce the likelihood of failure and vulnerability. (Please refer to Docker's online documentation for device and installation-specific ways to update the software.)</p>
-        <p>Regularly back up the Minecraft data folder (<code>minecraft-java-data</code>) to another storage location or external drive, so that you can recover your worlds and configuration if the device fails or storage becomes corrupted.</p>
-        <p>Avoid using a personal device as a large server platform. The server described in these instructions is best used in small, local network applications with up to 10&ndash;15 players, but its limited CPU and RAM may cause lag or crashes with too many players, plugins, or mods.</p>
-        <p>Finally, remember that the EULA environment variable exists to ensure you are following Mojang's licensing terms, so use it only in ways that comply with the official Minecraft license.</p>
+        <ul class="content-list">
+          <li>This setup is designed for a <strong>local network environment only</strong>. While there are safe methods to connect the server to the broader internet, those techniques fall outside the scope of these instructions and require additional considerations. <strong>Exposing ports directly to the public internet without proper safeguards can compromise not just your server, but potentially all devices connected to your network!</strong></li>
+          <li>Be sure to keep your device's OS and Docker installation updated to reduce the likelihood of failure and vulnerability. (Please refer to Docker's online documentation for device and installation-specific ways to update the software.)</li>
+          <li>Regularly back up the Minecraft data folder (<code>minecraft-java-data</code>) to another storage location or external drive, so that you can recover your worlds and configuration if the device fails or storage becomes corrupted.</li>
+          <li>Avoid using a personal device as a large server platform. The server described in these instructions is best used in small, local network applications with up to 10&ndash;15 players, but its limited CPU and RAM may cause lag or crashes with too many players, plugins, or mods.</li>
+          <li>Remember that the EULA environment variable exists to ensure you are following Mojang's licensing terms, so use it only in ways that comply with the official Minecraft license.</li>
+        </ul>
       </div>
     </section>
 
@@ -694,10 +700,10 @@
       <div class="intro-box-body">
         <p>Congratulations! You've successfully created and tested your own Minecraft server! Celebrate by inviting friends to join and enjoy your world together. If you'd like to expand your server's capabilities, try exploring options like:</p>
         <ul class="content-list">
-          <li>Setting up a Tailscale VPN to give your server a secure, shareable IP address for remote access.</li>
-          <li>Downloading a pre-made world, like the Uncensored Library.</li>
-          <li>Adding mods to your server to customize gameplay and introduce new features.</li>
-          <li>Automating server backups to protect your world and keep progress safe.</li>
+          <li>Setting up a <a href="https://tailscale.com/docs/solutions/set-up-minecraft" target="_blank">Tailscale VPN</a> to give your server a secure, shareable IP address for remote access.</li>
+          <li>Downloading a pre-made world, like the <a href="https://uncensoredlibrary.com" target="_blank">Uncensored Library</a>.</li>
+          <li><a href="https://nodecraft.com/support/games/minecraft/mods/installing-minecraft-mods" target="_blank">Adding mods</a> to your server to customize gameplay and introduce new features.</li>
+          <li><a href="https://hosthavoc.com/blog/minecraft-server-backup-recovery" target="_blank">Automating server backups</a> to protect your world and keep progress safe.</li>
         </ul>
         <p style="margin-top: 1rem;">Or feel free to keep the server as it is. Regardless, you have now set up your own Minecraft server and learned some technical skills along the way!</p>
       </div>
@@ -748,25 +754,6 @@ function switchGlobalOS(os) {
 
 // Collapsible sections
 (function() {
-  // Wrap intro-free content in a collapsible div
-  const introFree = document.querySelector('.intro-free');
-  if (introFree) {
-    const h2 = introFree.querySelector('h2');
-    const introBody = document.createElement('div');
-    introBody.className = 'intro-body';
-    while (h2.nextSibling) {
-      introBody.appendChild(h2.nextSibling);
-    }
-    introFree.appendChild(introBody);
-    const introIcon = document.createElement('span');
-    introIcon.className = 'section-toggle-icon';
-    introIcon.textContent = '\u25be';
-    h2.appendChild(introIcon);
-    h2.addEventListener('click', () => {
-      introFree.classList.toggle('section-collapsed');
-    });
-  }
-
   // Step headers and intro-box headers
   document.querySelectorAll('.step-header, .intro-box-header').forEach(header => {
     const icon = document.createElement('span');
