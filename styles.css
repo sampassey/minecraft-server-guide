@@ -454,7 +454,7 @@ details .dropdown-content {
 }
 .info-box.tip strong { color: var(--xp-green); }
 
-.info-box strong {
+.info-box > strong:first-child {
   display: block;
   margin-bottom: 0.25rem;
   font-size: 0.8rem;
@@ -469,6 +469,50 @@ details .dropdown-content {
   color: var(--text-primary);
 }
 .content-list li { margin-bottom: 0.3rem; }
+.content-list ul {
+  margin: 0.4rem 0 0.4rem 1.5rem;
+  list-style: circle;
+}
+.content-list ul li { margin-bottom: 0.2rem; }
+
+/* === REQUIREMENTS / SPEC SHEET === */
+.requirements-card {
+  margin: 1.25rem 0 1.25rem 0;
+  padding: 1rem 1.25rem 1.1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.requirements-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--grass-top);
+  margin: 0 0 0.75rem 0;
+}
+.spec-sheet {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.6rem 1.25rem;
+  margin: 0;
+}
+.spec-sheet dt {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--grass-top);
+  align-self: start;
+  padding-top: 0.15rem;
+}
+.spec-sheet dd {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.spec-sheet a { color: var(--diamond-blue); }
 
 .ordered-list {
   margin: 0.5rem 0 0.75rem 1.5rem;
@@ -486,6 +530,7 @@ details .dropdown-content {
 .conclusion .intro-box-header { background: var(--grass-top); }
 .conclusion .intro-box-header h2 { color: var(--bedrock); }
 .conclusion a { color: var(--diamond-blue); }
+.safety a { color: var(--diamond-blue); }
 
 /* === COLLAPSIBLE SECTIONS === */
 .step-header,

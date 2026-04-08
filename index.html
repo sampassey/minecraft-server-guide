@@ -58,7 +58,27 @@
       <p>Setting up a server you could join from anywhere in the world is beyond the scope of these instructions, as doing so comes with a jump in complexity, security concerns, as well as potential hosting costs. However, learning how to host a local server can provide the familiarity with the foundational tools, concepts, and terminology for hosting a more sophisticated server on the web in the future. </p>
       <p>Most of the work for setting up the server will be done on the terminal and the server itself will run on software called <strong>Docker</strong>. While macOS, Windows, and Linux all are capable of running Docker, these instructions focus on the methods of installing Docker that are specific to Linux and macOS only.</p>
       <p>The instructions will illustrate how to install Docker, configure the server, run, and shut down the server using the terminal, as well as provide a list of precautions and warnings for running the server safely.</p>
-      <p>These instructions were written for someone interested in setting up their very first minecraft server. While experience executing commands from your terminal or working with Docker is helpful, it is not required. </p>
+      <p>These instructions were written for someone interested in setting up their very first Minecraft server. While experience executing commands from your terminal or working with Docker is helpful, it is not required. </p>
+
+      <div class="requirements-card">
+        <h3 class="requirements-title">Requirements</h3>
+        <dl class="spec-sheet">
+          <dt>OS</dt>
+          <dd>Linux (Ubuntu Server, Debian, or Raspberry Pi OS 64-bit) or macOS (macOS 12&ndash;14 on Apple Silicon).</dd>
+
+          <dt>RAM</dt>
+          <dd>4 GB minimum &mdash; required for smooth multiplayer gameplay on a Java Minecraft server.</dd>
+
+          <dt>Network</dt>
+          <dd>Local network connection via Wi-Fi or Ethernet (Ethernet recommended for stability).</dd>
+
+          <dt>Device</dt>
+          <dd>A dedicated machine is recommended, since running a server can use significant resources and make other tasks difficult.</dd>
+
+          <dt>Windows</dt>
+          <dd>Not supported in these instructions &mdash; see <a href="https://minecraft.fandom.com/wiki/Tutorials/Setting_up_a_server#Windows_instructions" target="_blank">the Minecraft wiki</a> for Windows setup.</dd>
+        </dl>
+      </div>
 
       <details>
         <summary>What is Docker?</summary>
@@ -66,16 +86,6 @@
           Docker is a lightweight software that packages an app (such as a Minecraft server) and everything the app needs to run into a standardized, isolated unit called a <strong>container</strong>. A Docker container runs consistently across different computing environments, hardware, and operating systems, from a simple laptop to a powerful server computer.
         </div>
       </details>
-
-      <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-heading); margin: 1.5rem 0 0.5rem;">Requirements</h3>
-      <ul class="content-list">
-        <li>The device must be running a <strong>supported version of Linux</strong>, such as Ubuntu Server, Debian, or Raspberry Pi OS 64-bit.</li>
-        <li>Alternatively, you may use a <strong>Mac running a currently supported version of macOS</strong> (macOS 12&ndash;14 on Apple Silicon chips).</li>
-        <li>Windows is not supported in these instructions, but you can find instructions for how to set up a Minecraft server on Windows <a href="https://minecraft.fandom.com/wiki/Tutorials/Setting_up_a_server#Windows_instructions" target="_blank">elsewhere</a>.</li>
-        <li>The device must have at least <strong>4 GB of RAM</strong> available &mdash; this is the minimum to ensure smooth multiplayer gameplay on a Java Minecraft server.</li>
-        <li>The device must be <strong>connected to a local network</strong> via Wi-Fi or Ethernet (Ethernet recommended for stability).</li>
-        <li>We recommend using a device that you plan to only use for this purpose, as running a server can require a significant amount of your computer's resources and make it difficult to perform other tasks at the same time.</li>
-      </ul>
       </div>
     </section>
 
@@ -86,13 +96,22 @@
         <h2>Safety and Precautions</h2>
       </div>
       <div class="step-body">
-        <ul class="content-list">
-          <li>This setup is designed for a <strong>local network environment only</strong>. While there are safe methods to connect the server to the broader internet, those techniques fall outside the scope of these instructions and require additional considerations. <strong>Exposing ports directly to the public internet without proper safeguards can compromise not just your server, but potentially all devices connected to your network!</strong></li>
-          <li>Be sure to keep your device's OS and Docker installation updated to reduce the likelihood of failure and vulnerability. (Please refer to Docker's online documentation for device and installation-specific ways to update the software.)</li>
-          <li>Regularly back up the Minecraft data folder (<code>minecraft-java-data</code>) to another storage location or external drive, so that you can recover your worlds and configuration if the device fails or storage becomes corrupted.</li>
-          <li>Avoid using a personal device as a large server platform. The server described in these instructions is best used in small, local network applications with up to 10&ndash;15 players, but its limited CPU and RAM may cause lag or crashes with too many players, plugins, or mods.</li>
-          <li>Remember that the EULA environment variable exists to ensure you are following Mojang's licensing terms, so use it only in ways that comply with the official Minecraft license.</li>
-        </ul>
+        <div class="info-box warning">
+          <strong>Network exposure</strong>
+          This setup is designed for a <strong>local network only</strong>. Exposing ports directly to the public internet without proper safeguards can compromise not just your server, but potentially all devices connected to your network. Safe methods to connect the server to the broader internet exist, but fall outside the scope of these instructions.
+        </div>
+
+        <details>
+          <summary>Other best practices</summary>
+          <div class="dropdown-content">
+            <ul class="content-list" style="margin-top: 0;">
+              <li><strong>Keep things updated.</strong> Keep your device's OS and Docker installation updated to reduce the likelihood of failure and vulnerability. Refer to <a href="https://docs.docker.com/" target="_blank">Docker's online documentation</a> for device and installation-specific ways to update the software.</li>
+              <li><strong>Back up your world.</strong> Regularly back up the Minecraft data folder (<code>minecraft-java-data</code>) to another storage location or external drive, so that you can recover your worlds and configuration if the device fails or storage becomes corrupted.</li>
+              <li><strong>Hardware limits.</strong> Avoid using a personal device to host a large server. The server described in these instructions is best used in small, local network applications with up to 10&ndash;15 players, but its limited CPU and RAM may cause lag or crashes with too many players, plugins, or mods.</li>
+              <li><strong>License compliance.</strong> Only use the server in ways that comply with the <a href="https://www.minecraft.net/en-us/eula" target="_blank">official Minecraft license</a>.</li>
+            </ul>
+          </div>
+        </details>
       </div>
     </section>
 
@@ -253,9 +272,7 @@
         <h2>Create a Minecraft-Docker Project Folder</h2>
       </div>
       <div class="step-body">
-        <p>Now, we'll create a folder to store Docker information for the Minecraft server. This keeps the server's files organized, and makes it easy to back up or move the server to a different device later.</p>
-
-        <p>Create the folder and enter it by entering the following in the terminal:</p>
+        <p>Enter the following in the terminal:</p>
 
         <div class="code-block">
           <div class="code-block-header">
@@ -264,6 +281,8 @@
           </div>
           <pre><code>mkdir ~/minecraft-docker; cd ~/minecraft-docker</code></pre>
         </div>
+
+        <p>Now, we'll create a folder to store Docker information for the Minecraft server. This keeps the server's files organized, and makes it easy to back up or move the server to a different device later.</p>
 
         <details>
           <summary>Breakdown</summary>
@@ -286,11 +305,7 @@
         <h2>Create the docker-compose.yml File</h2>
       </div>
       <div class="step-body">
-        <p>Docker requires instructions that are provided by specialized text files known as YAML (<code>.yml</code>) files. We'll create one of those and load it with instructions for Docker on how to set up and run the server.</p>
-
-        <p>These configuration instructions can be adjusted to change the settings of your server, but these instructions will provide the standard boilerplate code to get a simple server started.</p>
-
-        <p>Create the YAML file by entering the following into the terminal:</p>
+        <p>Enter the following into the terminal:</p>
 
         <div class="code-block">
           <div class="code-block-header">
@@ -301,6 +316,10 @@
         </div>
 
         <img class="guide-image" src="5.1 Nano.png" alt="An empty nano editor window">
+
+        <p>Docker requires instructions that are provided by specialized text files known as YAML (<code>.yml</code>) files. We'll create one of those and load it with instructions for Docker on how to set up and run the server.</p>
+
+        <p>These configuration instructions can be adjusted to change the settings of your server, but these instructions will provide the standard boilerplate code to get a simple server started.</p>
 
         <details>
           <summary>Breakdown</summary>
@@ -478,9 +497,7 @@
         <h2>Find Your Server's IP Address</h2>
       </div>
       <div class="step-body">
-        <p>You'll need to find your server's address for your friends to join before play.</p>
-        <p>The address of your server consists of two elements: the <strong>IP address</strong> of the device your server is running on, and the <strong>port</strong> number <code>25565</code> (as defined in Step 5).</p>
-        <p>Find the device IP address (your computer's address on the network, usually represented by a string of numbers, like <code>192.168.1.100</code>) by typing the following into the terminal:</p>
+        <p>Type the following into the terminal:</p>
 
         <div class="os-toggle">
           <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
@@ -512,6 +529,8 @@
             <li><code>ipconfig getifaddr en0</code> prints the local network IP address of your Mac's primary network interface.</li>
           </ul>
         </div>
+
+        <p>You'll need to find your server's address for your friends to join before play. The address of your server consists of two elements: the <strong>IP address</strong> of the device your server is running on, and the <strong>port</strong> number <code>25565</code> (as defined in Step 5). The device IP address is your computer's address on the network, usually represented by a string of numbers, like <code>192.168.1.100</code>.</p>
 
         <p>Write down the IP address or copy/paste it somewhere for future reference.</p>
 
