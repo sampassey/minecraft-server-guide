@@ -58,7 +58,7 @@
       <p>While a Minecraft server can be hosted in a number of different ways, this document explains how to set up and run a server on a physical device running Linux (such as a Raspberry Pi, or spare laptop with Ubuntu) or on a Mac. The server will be available for anybody on your local network to join, provided they have their own copy of Minecraft Java Edition.</p>
       <p>Setting up a server you could join from anywhere in the world is beyond the scope of these instructions, as doing so comes with a jump in complexity, security concerns, as well as potential hosting costs. However, learning how to host a local server can provide the familiarity with the foundational tools, concepts, and terminology for hosting a more sophisticated server on the web in the future. </p>
       <p>Most of the work for setting up the server will be done on the terminal and the server itself will run on software called <strong>Docker</strong>. While macOS, Windows, and Linux all are capable of running Docker, these instructions focus on the methods of installing Docker that are specific to Linux and macOS only.</p>
-      <p>The instructions will illustrate how to install Docker, configure the server, run the server, and shut down the server using the terminal. There are also various precautions and warnings throughout the instructions to guide you in running the server successfully and safely. You will also find a few troubleshooting tips at the end of the instructions to help if something does not appear to be working right.</p>
+      <p>The instructions will illustrate how to install Docker, configure the server, run the server, and shut down the server using the terminal. There is also a list of precautions and warnings provided to help you run the server safely and successfully. You will also find a few troubleshooting tips at the end of the instructions to help if something does not appear to be working right.</p>
 
       <div class="requirements-card">
         <h3 class="requirements-title">Requirements</h3>
@@ -98,22 +98,24 @@
         <h2>Safety and Precautions</h2>
       </div>
       <div class="step-body">
-        <div class="info-box warning">
-          <strong>Network exposure</strong>
-          This setup is designed for a <strong>local network only</strong>. Exposing ports directly to the public internet without proper safeguards can compromise not just your server, but potentially all devices connected to your network. Safe methods to connect the server to the broader internet exist, but fall outside the scope of these instructions.
-        </div>
-
-        <details>
-          <summary>Other best practices</summary>
-          <div class="dropdown-content">
-            <ul class="content-list" style="margin-top: 0;">
-              <li><strong>Keep things updated.</strong> Keep your device's OS and Docker installation updated to reduce the likelihood of failure and vulnerability. Refer to <a href="https://docs.docker.com/" target="_blank">Docker's online documentation</a> for device and installation-specific ways to update the software.</li>
-              <li><strong>Back up your world.</strong> Regularly back up the Minecraft data folder (<code>minecraft-java-data</code>) to another storage location or external drive, so that you can recover your worlds and configuration if the device fails or storage becomes corrupted.</li>
-              <li><strong>Hardware limits.</strong> Avoid using a personal device to host a large server. The server described in these instructions is best used in small, local network applications with up to 10&ndash;15 players, but its limited CPU and RAM may cause lag or crashes with too many players, plugins, or mods.</li>
-              <li><strong>License compliance.</strong> Only use the server in ways that comply with the <a href="https://www.minecraft.net/en-us/eula" target="_blank">official Minecraft license</a>.</li>
+        <ul class="content-list">
+          <li><strong>Network exposure.</strong> This setup is designed for a <strong>local network only</strong>. Exposing ports directly to the public internet without proper safeguards can compromise not just your server, but potentially all devices connected to your network.
+            <ul><li>Safe methods to connect the server to the broader internet exist, but fall outside the scope of these instructions.</li></ul>
+          </li>
+          <li><strong>Keep things updated.</strong> Keep your device's OS and Docker installation updated to reduce the likelihood of failure and vulnerability.
+            <ul><li>Refer to <a href="https://docs.docker.com/" target="_blank">Docker's online documentation</a> for device and installation-specific ways to update the software.</li></ul>
+          </li>
+          <li><strong>Back up your world.</strong> Regularly back up the Minecraft data folder (<code>minecraft-java-data</code>) to another storage location or external drive.
+            <ul><li>That way you can recover your worlds and configuration if the device fails or storage becomes corrupted.</li></ul>
+          </li>
+          <li><strong>Hardware limits.</strong> Avoid using a personal device to host a large server.
+            <ul>
+              <li>The server described in these instructions is best used in small, local network applications with up to 10&ndash;15 players.</li>
+              <li>Limited CPU and RAM may cause lag or crashes with too many players, plugins, or mods.</li>
             </ul>
-          </div>
-        </details>
+          </li>
+          <li><strong>License compliance.</strong> Only use the server in ways that comply with the <a href="https://www.minecraft.net/en-us/eula" target="_blank">official Minecraft license</a>.</li>
+        </ul>
       </div>
     </section>
 
