@@ -165,7 +165,7 @@
             If you haven't identified the server device's IP address yet, skip ahead to <a href="#step7" style="color: var(--xp-green);">Step 7</a> to learn how to find it directly on the device itself.
           </div>
 
-          <p>Once connected, run all commands in the remote terminal session, as the rest of the process is the same as working directly on the device.</p>
+          <p>Once connected, run all commands in the remote SSH terminal session, as the rest of the process is the same as working directly on the device.</p>
 
           <details>
             <summary>What is SSH?</summary>
@@ -205,7 +205,7 @@
         </div>
 
         <div class="os-content linux active">
-          <p>Enter the following into the terminal to download Docker's install script:</p>
+          <p>Once you have terminal opened and are logged in, enter the following into the terminal to download Docker's install script:</p>
 
           <div class="code-block">
             <div class="code-block-header">
@@ -226,7 +226,7 @@
             </div>
           </details>
 
-          <p>After the script finishes downloading, run it to install Docker:</p>
+          <p>After the script finishes downloading, enter this line in terminal to run the script that installs Docker:</p>
 
           <div class="code-block">
             <div class="code-block-header">
@@ -240,7 +240,7 @@
             <summary>Breakdown</summary>
             <div class="dropdown-content">
               <ul class="cmd-explain" style="margin: 0;">
-                <li><code>sudo</code> tells the terminal to run whatever comes next with administrator-level permissions; we need this to install software.</li>
+                <li><code>sudo</code> tells the terminal to run whatever comes next with administrator-level permissions; you need this to install software.</li>
                 <li><code>sh</code> tells the terminal to execute a script.</li>
                 <li><code>get-docker.sh</code> is the script you just downloaded to install Docker to the device.</li>
               </ul>
@@ -260,7 +260,7 @@
             </li>
             <li>Open the application through Finder's Application folder OR through Spotlight Search (<code>Cmd + Space</code>) by typing <code>Docker</code>.</li>
             <li>The Docker engine will start up and ask for permissions. You'll need to give the app the permissions it requests.</li>
-            <li>Once the app has been opened and permissions granted, we can do the rest in the terminal. Close the app.</li>
+            <li>Once the app has been opened and permissions granted, you can do the rest in the terminal. Close the app.</li>
           </ol>
 
           <details>
@@ -277,10 +277,10 @@
     <section class="step" id="step3">
       <div class="step-header">
         <span class="step-number">3</span>
-        <h2>Create a Minecraft-Docker Project Folder</h2>
+        <h2>Create a Docker Project Folder for the Minecraft Server</h2>
       </div>
       <div class="step-body">
-        <p>Enter the following in the terminal:</p>
+        <p>Now enter the following in the terminal:</p>
 
         <div class="code-block">
           <div class="code-block-header">
@@ -290,14 +290,14 @@
           <pre><code>mkdir ~/minecraft-docker; cd ~/minecraft-docker</code></pre>
         </div>
 
-        <p>This creates a folder to store Docker information for the Minecraft server. This keeps the server's files organized, and makes it easy to back up or move the server to a different device later.</p>
+        <p>This line creates a folder to store Docker information for the Minecraft server. It keeps the server's files organized, and makes it easy to back up or move the server to a different device later.</p>
 
         <details>
           <summary>Breakdown</summary>
           <div class="dropdown-content">
             <ul class="cmd-explain" style="margin: 0;">
               <li><code>mkdir</code> is the command for "make directory." A directory is the same thing as a folder. This command creates a directory named <code>minecraft-docker</code> in your device's home folder, denoted by the tilde (<code>~</code>).</li>
-              <li>You can specify any location for this folder that you would like after the <code>mkdir</code> command, but we will use the home folder here for simplicity's sake.</li>
+              <li>You can specify any location for this folder that you would like after the <code>mkdir</code> command, but you will use the home folder here for simplicity's sake.</li>
               <li>If you name it something else, use that directory's path, which you can find using <code>pwd</code> (print working directory) every time you see <code>~/minecraft-docker</code>.</li>
               <li><code>cd</code> is the command for "change directory." This changes your current working directory in the terminal to that folder, so all the following changes will be made there. You can tell which directory you are currently in by looking at the end of the terminal prompt, where you type things in. At this point it should end with <code>~/minecraft-docker$</code>.</li>
             </ul>
@@ -313,7 +313,7 @@
         <h2>Create the docker-compose.yml File</h2>
       </div>
       <div class="step-body">
-        <p>Enter the following into the terminal:</p>
+        <p>After you have created the <code>minecraft-docker</code> project folder, enter the following into the terminal:</p>
 
         <div class="code-block">
           <div class="code-block-header">
@@ -440,8 +440,10 @@
           </div>
         </div>
 
-        <div class="info-box note">
-          <strong>Note</strong>
+        <p>On the first run, Docker will automatically download the <code>itzg/minecraft-server</code> image from Docker Hub, if it is not already on the device. Once the image is pulled, Docker will create a container, download the Minecraft server files, and start the server process.</p>
+
+        <div class="info-box warning">
+          <strong>This may take a moment.</strong>
           This command can take anywhere from a few seconds to a few minutes to run. Wait for the process to complete and do not interfere with the terminal during this time.
         </div>
 
@@ -457,10 +459,8 @@
           </div>
         </details>
 
-        <p>On the first run, Docker will automatically download the <code>itzg/minecraft-server</code> image from Docker Hub, if it is not already on the device. Once the image is pulled, Docker will create a container, download the Minecraft server files, and start the server process.</p>
-
         <h3>Verify the Server is Running</h3>
-        <p>Type the following to ensure the Minecraft server is running:</p>
+        <p>Once the previous command finishes, enter the following into terminal to make sure that the Minecraft server is running:</p>
 
         <div class="os-toggle">
           <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
@@ -630,13 +630,12 @@
         </details>
 
         <h3>Starting it back up</h3>
-        <p>To turn the server back on, you may either turn the host device off and on again (recall that in Step 5, the restart variable was set to <code>restart: unless-stopped</code> &mdash; this means power cycling the device will start the server when the device restarts), or enter the following into the terminal:</p>
+        <p>To turn the server back on, enter the following into the terminal:</p>
 
         <div class="os-toggle">
           <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
           <button onclick="switchGlobalOS('mac')">macOS</button>
         </div>
-
         <div class="os-content linux active">
           <div class="code-block">
             <div class="code-block-header">
@@ -656,7 +655,7 @@
             <pre><code>cd ~/minecraft-docker; docker compose start</code></pre>
           </div>
         </div>
-
+        <p> Additionally, you can turn the server back on by restarting your device. (Recall that in Step 5, the restart variable was set to <code>restart: unless-stopped</code>.)</p>
         <details>
           <summary>Breakdown</summary>
           <div class="dropdown-content">
@@ -669,11 +668,11 @@
     </section>
 
     <!-- CONCLUSION -->
-    <section class="intro-box conclusion" id="conclusion">
-      <div class="intro-box-header">
+    <section class="step conclusion" id="conclusion">
+      <div class="step-header">
         <h2>Conclusion</h2>
       </div>
-      <div class="intro-box-body">
+      <div class="step-body">
         <p>Congratulations! You've successfully created and tested your own Minecraft server! Celebrate by inviting friends to join and enjoy your world together. If you'd like to expand your server's capabilities, try exploring options like:</p>
         <ul class="content-list">
           <li>Setting up a <a href="https://tailscale.com/docs/solutions/set-up-minecraft" target="_blank">Tailscale VPN</a> to give your server a secure, shareable IP address for remote access.</li>
@@ -692,9 +691,9 @@
         <h2>Troubleshooting</h2>
       </div>
       <div class="step-body">
-        <div class="info-box warning">
+        <div class="info-box note">
           <strong>General Advice</strong>
-          The most important piece of troubleshooting advice is to be exact. The commands, configuration file (.yaml), and instructions must be followed exactly. There is no "close enough" in this process!
+          The most important piece of troubleshooting advice is to be exact. The commands, the configuration <code>.yaml</code> file, and instructions must be followed exactly. There is no "close enough" in this process!
         </div>
 
         <h3>Nothing appears when you check if the server is running (Step 6)</h3>
@@ -725,7 +724,7 @@
           </div>
         </div>
 
-        <p>If this does not work, check to see if the compose file has an error. Open the <code>docker-compose.yml</code> file using this command:</p>
+        <p>If this does not work, check to see if the compose file has an error. Open the <code>docker-compose.yml</code> file using this command and check that your indendation matches:</p>
 
         <div class="code-block">
           <div class="code-block-header">
@@ -734,8 +733,6 @@
           </div>
           <pre><code>nano docker-compose.yml</code></pre>
         </div>
-
-        <p>and confirm indentation and content match the text given in Step 5.</p>
 
         <h3>Docker itself is not working ("command not found")</h3>
         <p>Verify Docker is installed and running by re-running the Docker install script (Step 2) and then trying the <code>docker ps</code> command again (<code>sudo docker ps</code> on Linux). Return to Step 6 and repeat the startup and verification steps until <code>docker ps</code> shows a running <code>minecraft-java</code> container.</p>

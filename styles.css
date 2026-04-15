@@ -537,8 +537,7 @@ details .dropdown-content {
 .introduction .intro-box-header { background: var(--grass-green); }
 .introduction .intro-box-header h2 { color: #fff; }
 .introduction a { color: var(--diamond-blue); }
-.conclusion .intro-box-header { background: var(--grass-top); }
-.conclusion .intro-box-header h2 { color: var(--bedrock); }
+.conclusion .step-header { background: var(--grass-green); }
 .conclusion a { color: var(--diamond-blue); }
 .safety a { color: var(--diamond-blue); }
 
