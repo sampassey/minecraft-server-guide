@@ -51,7 +51,10 @@
       </div>
       <div class="intro-box-body">
       <p>When hosting your own Minecraft world, one of the biggest frustrations is that your friends can only play when you, the host, are signed on and in the world. Setting up a dedicated server solves this problem by keeping the world available at all times, no matter who is online. These instructions show how to create your own server, available 24/7 and completely free.</p>
-      <p>Whether you are looking to get your first ever minecraft server started as fast as possible, or you’d like to understand the meaning of each necessary command, these instructions are for you. While experience executing commands from your terminal is helpful, it is not required. Each step clearly tells you what to do and then provides more detailed explanations in dropdown boxes.</p>
+      <p></p>
+
+
+      <p>Whether you are looking to get your first ever Minecraft server started as fast as possible, or you'd like to understand the meaning of each necessary command, these instructions are for you. While experience executing commands from your terminal is helpful, it is not required. Each step clearly tells you what to do and then provides more detailed explanations in dropdown boxes.</p>
       
             <img class="guide-image" src="My new server.png" alt="Connecting to your Minecraft server">
 
@@ -201,7 +204,7 @@
         </div>
 
         <div class="os-content linux active">
-          <p>Type the following into the terminal to download Docker's install script:</p>
+          <p>Enter the following into the terminal to download Docker's install script:</p>
 
           <div class="code-block">
             <div class="code-block-header">
@@ -286,7 +289,7 @@
           <pre><code>mkdir ~/minecraft-docker; cd ~/minecraft-docker</code></pre>
         </div>
 
-        <p>Now, we'll create a folder to store Docker information for the Minecraft server. This keeps the server's files organized, and makes it easy to back up or move the server to a different device later.</p>
+        <p>This creates a folder to store Docker information for the Minecraft server. This keeps the server's files organized, and makes it easy to back up or move the server to a different device later.</p>
 
         <details>
           <summary>Breakdown</summary>
@@ -319,11 +322,9 @@
           <pre><code>nano docker-compose.yml</code></pre>
         </div>
 
+        <p>An empty nano window will appear:</p>
+
         <img class="guide-image" src="5.1 Nano.png" alt="An empty nano editor window">
-
-        <p>Docker requires instructions that are provided by specialized text files known as YAML (<code>.yml</code>) files. We'll create one of those and load it with instructions for Docker on how to set up and run the server.</p>
-
-        <p>These configuration instructions can be adjusted to change the settings of your server, but these instructions will provide the standard boilerplate code to get a simple server started.</p>
 
         <details>
           <summary>Breakdown</summary>
@@ -339,7 +340,9 @@
         <details>
           <summary>What's YAML?</summary>
           <div class="dropdown-content">
-            YAML files are just specially formatted plain text files. Programs will often use these to store settings. They're favored because they're easy to read and write.
+            <p>YAML files are just specially formatted plain text files. Programs will often use these to store settings. They're favored because they're easy to read and write.</p>
+            <p>Docker requires instructions that are provided by specialized text files known as YAML (<code>.yml</code>) files. This code creates one of those text files, which, in the next step, will be loaded with configurations for Docker on how to run the server.</p>
+            <p>These configurations can be adjusted to change the settings of your server, but these instructions will provide the standard boilerplate code to get a simple server started.</p>
           </div>
         </details>
       </div>
@@ -352,12 +355,7 @@
         <h2>Define the Minecraft Server</h2>
       </div>
       <div class="step-body">
-        <p>You should now see an empty nano window in your terminal. Copy and paste the following code to define a standard Java Minecraft server:</p>
-
-        <div class="info-box warning">
-          <strong>Indentation matters!</strong>
-          YAML files are whitespace-sensitive. Match the spacing exactly as shown below.
-        </div>
+        <p>Copy and paste the following code into the empty nano window to define a standard Java Minecraft server:</p>
 
         <div class="code-block">
           <div class="code-block-header">
@@ -374,6 +372,11 @@
     volumes:
       - ./minecraft-java-data:/data
     restart: unless-stopped</code></pre>
+        </div>
+
+        <div class="info-box warning">
+          <strong>Indentation matters!</strong>
+          YAML files are whitespace-sensitive. Match the spacing exactly as shown below.
         </div>
 
         <details>
@@ -409,7 +412,7 @@
         <h2>Start the Minecraft Server</h2>
       </div>
       <div class="step-body">
-        <p>To start the Minecraft Java server container in the background of the device, type the following command in the terminal:</p>
+        <p>To run the Minecraft Java server container in the background on your device, type the following command in the terminal:</p>
 
         <div class="os-toggle">
           <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
@@ -534,9 +537,15 @@
           </ul>
         </div>
 
-        <p>You'll need to find your server's address for your friends to join before play. The address of your server consists of two elements: the <strong>IP address</strong> of the device your server is running on, and the <strong>port</strong> number <code>25565</code> (as defined in Step 5). The device IP address is your computer's address on the network, usually represented by a string of numbers, like <code>192.168.1.100</code>.</p>
-
         <p>Write down the IP address or copy/paste it somewhere for future reference.</p>
+
+        <details>
+          <summary>What's an IP address?</summary>
+          <div class="dropdown-content">
+            You'll need to find your server's address for your friends to join before play. The address of your server consists of two elements: the <strong>IP address</strong> of the device your server is running on, and the <strong>port</strong> number <code>25565</code> (as defined in Step 5). The device IP address is your computer's address on the network, usually represented by a string of numbers, like <code>192.168.1.100</code>.
+          </div>
+        </details>
+
 
         <details>
           <summary>What's a port?</summary>
@@ -577,13 +586,8 @@
         <h2>Shutting Down the Server</h2>
       </div>
       <div class="step-body">
-        <div class="info-box note">
-          <strong>Note</strong>
-          If you are hosting the server on your personal computer, it is good practice to shut it down when you are done playing. Allowing a busy server to continue running in the background can consume a significant amount of your machine's computational resources.
-        </div>
 
         <p>To stop the server while keeping its configuration and data, enter the following into the server device's terminal to shut the server off without risking any loss of data in your Minecraft world:</p>
-
         <div class="os-toggle">
           <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
           <button onclick="switchGlobalOS('mac')">macOS</button>
@@ -607,6 +611,11 @@
             </div>
             <pre><code>cd ~/minecraft-docker; docker compose stop</code></pre>
           </div>
+        </div>
+
+        <div class="info-box note">
+          <strong>Note</strong>
+          If you are hosting the server on your personal computer, it is good practice to shut it down when you are done playing. Allowing a busy server to continue running in the background can consume a significant amount of your machine's computational resources.
         </div>
 
         <details>

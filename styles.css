@@ -454,6 +454,7 @@ details .dropdown-content {
 }
 .info-box.tip strong { color: var(--xp-green); }
 
+
 .info-box > strong:first-child {
   display: block;
   margin-bottom: 0.25rem;
