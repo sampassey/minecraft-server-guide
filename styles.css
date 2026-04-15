@@ -179,6 +179,15 @@ main {
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
+.image-caption {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
 /* === STEP SECTIONS === */
 .step {
   margin-bottom: 2rem;
