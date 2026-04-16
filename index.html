@@ -133,6 +133,7 @@
         <p>Open the terminal on the machine you wish to install the server on.</p>
 
         <img class="guide-image" src="1 - The Terminal.png" alt="A terminal window">
+        <p class="image-caption">When terminal is opened, it will look something like this.</p>
 
         <div class="os-toggle">
           <button class="active" onclick="switchGlobalOS('linux')">Linux</button>
@@ -140,37 +141,33 @@
         </div>
 
         <div class="os-content linux active">
-          <p>You may do this one of two ways:</p>
-
-          <p><strong>On the physical device</strong> (Recommended if your Linux device has a keyboard and screen)<br>
-          Open a terminal directly on your Linux device by launching the terminal application from the system's desktop or console interface. For some distros, this can be done with <code>Ctrl+Alt+T</code>.</p>
-
-          <p><strong>Via SSH</strong> (If your Linux device does not have a keyboard and screen)<br>
-          From another machine on the same network, use a device with SSH installed to connect to the Linux device; macOS, most Linux distros, and Windows should have this command line tool installed by default.</p>
-
-          <p>Open a terminal on another machine (see above for Linux, see below for Mac, and for Windows press <code>Windows Key+R</code>, type <code>cmd</code>, then press Enter) and run:</p>
-
-          <div class="code-block">
-            <div class="code-block-header">
-              <span class="label">Terminal</span>
-              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            </div>
-            <pre><code>ssh &lt;username&gt;@&lt;device-ip&gt;</code></pre>
-          </div>
-
-          <p>Replace <code>&lt;username&gt;</code> with your Linux account name, and <code>&lt;device-ip&gt;</code> with the server device's local IP address.</p>
-
-          <div class="info-box tip">
-            <strong>Tip</strong>
-            If you haven't identified the server device's IP address yet, skip ahead to <a href="#step7" style="color: var(--xp-green);">Step 7</a> to learn how to find it directly on the device itself.
-          </div>
-
-          <p>Once connected, run all commands in the remote SSH terminal session, as the rest of the process is the same as working directly on the device.</p>
+          <p>Open a terminal directly on your Linux device by launching the terminal application from the system's desktop or console interface. For most devices, this can be done with <code>Ctrl+Alt+T</code>.</p>
 
           <details>
-            <summary>What is SSH?</summary>
+            <summary>No keyboard or screen?</summary>
             <div class="dropdown-content">
-              SSH stands for "Secure Shell." It's a way to connect to a computer and execute commands on it by typing them into your own computer. If you don't know what this is, that's OK. You can just access the terminal via the physical device by attaching a keyboard and display.
+              <p>If your Linux device does not have a keyboard and screen, you can connect to it remotely using SSH (Secure Shell). SSH is a way to connect to a computer and execute commands on it by typing them into your own computer.</p>
+
+              <p>From another machine on the same network, use a device with SSH installed to connect to the Linux device; macOS, most Linux systems, and Windows should have this command line tool installed by default.</p>
+
+              <p>Open a terminal on another machine (for Linux use <code>Ctrl+Alt+T</code>, for Mac see below, and for Windows press <code>Windows Key+R</code>, type <code>cmd</code>, then press Enter) and run:</p>
+
+              <div class="code-block">
+                <div class="code-block-header">
+                  <span class="label">Terminal</span>
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>ssh &lt;username&gt;@&lt;device-ip&gt;</code></pre>
+              </div>
+
+              <p>Replace <code>&lt;username&gt;</code> with your Linux account name, and <code>&lt;device-ip&gt;</code> with the server device's local IP address.</p>
+
+              <div class="info-box note">
+                <strong>Note</strong>
+                If you haven't identified the server device's IP address yet, skip ahead to <a href="#step7" style="color: var(--diamond-blue);">Step 7</a> to learn how to find it directly on the device itself.
+              </div>
+
+              <p>Once connected, run all commands in the remote SSH terminal session, as the rest of the process is the same as working directly on the device.</p>
             </div>
           </details>
         </div>
@@ -205,7 +202,7 @@
         </div>
 
         <div class="os-content linux active">
-          <p>Once you have terminal opened and are logged in, enter the following into the terminal to download Docker's install script:</p>
+          <p>Once you have terminal opened, enter the following into the terminal to download Docker's install script:</p>
 
           <div class="code-block">
             <div class="code-block-header">
@@ -403,6 +400,7 @@
           <li>Press <code>Y</code> to accept the changes, when prompted</li>
           <li>Press <code>Enter</code> to finalize all changes and exit</li>
         </ol>
+        <p>Successfully exiting will put you back into a normal terminal interface.</p>
       </div>
     </section>
 
@@ -486,12 +484,12 @@
             <pre><code>docker ps</code></pre>
           </div>
         </div>
-
+        <p>If you've followed the directions correctly, you should see a row showing the container <code>itzg/minecraft-server</code>, along with other information, like ports, the container name, etc.</p>
         <details>
           <summary>Breakdown</summary>
           <div class="dropdown-content">
             <ul class="cmd-explain" style="margin: 0;">
-              <li><code>ps</code> is "process status," and it shows all running Docker processes. You'll see your Minecraft server running here if you've followed the directions carefully!</li>
+              <li><code>ps</code> is "process status," and it prints off all running Docker processes.</li>
             </ul>
           </div>
         </details>
