@@ -396,6 +396,10 @@ details {
   overflow: hidden;
 }
 
+details.safety-dropdown summary {
+  color: var(--redstone-red);
+}
+
 details summary {
   padding: 0.7rem 1rem;
   cursor: pointer;

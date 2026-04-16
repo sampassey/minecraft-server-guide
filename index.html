@@ -57,7 +57,7 @@
       <p>To complete these instructions, experience executing commands from your terminal is helpful, but not required. For beginners interested in understanding each terminal command or the big-picture concepts, optional explanatory detail has been provided. On the other hand, if you already have worked with terminal and are just looking to get a Minecraft server up-and-running as fast as possible, you should be able to scan through and complete these instructions in just a few minutes.</p>
       
             <img class="guide-image" src="My new server.png" alt="Connecting to your Minecraft server">
-            <p class="image-caption">By the end of this tutorial, you will have your own Minecraft server, ready to play with your friends!</p>
+            <p class="image-caption">By the end of this tutorial, you will have your own Minecraft server to play on with your friends.</p>
 
       <p>While a Minecraft server can be hosted in a number of different ways, this document explains how to set up and run a server on a physical device running <strong>Linux</strong> (such as a Raspberry Pi, or spare laptop with Ubuntu) or on a <strong>Mac</strong>. The server will be available for anybody on your local network to join, provided they have their own copy of Minecraft Java Edition.</p>
       <p>Setting up a server you could join from anywhere in the world is beyond the scope of these instructions, as doing so comes with a jump in complexity, security concerns, as well as potential hosting costs. However, learning how to host a local server can provide the familiarity with the foundational tools, concepts, and terminology for hosting a more sophisticated server on the web in the future. </p>
@@ -92,34 +92,30 @@
           Docker is a lightweight software that packages an app (such as a Minecraft server) and everything the app needs to run into a standardized, isolated unit called a <strong>container</strong>. A Docker container runs consistently across different computing environments, hardware, and operating systems, from a simple laptop to a powerful server computer.
         </div>
       </details>
-      </div>
-    </section>
 
-    <!-- SAFETY -->
-    <section class="step safety" id="safety">
-      <div class="step-header">
-        <span class="step-number">!</span>
-        <h2>Safety and Precautions</h2>
-      </div>
-      <div class="step-body">
-        <ul class="content-list">
-          <li><strong>Network exposure.</strong> This setup is designed for a <strong>local network only</strong>. Exposing ports directly to the public internet without proper safeguards can compromise not just your server, but potentially all devices connected to your network.
-            <ul><li>Safe methods to connect the server to the broader internet exist, but fall outside the scope of these instructions.</li></ul>
-          </li>
-          <li><strong>Keep things updated.</strong> Keep your device's OS and Docker installation updated to reduce the likelihood of failure and vulnerability.
-            <ul><li>Refer to <a href="https://docs.docker.com/" target="_blank">Docker's online documentation</a> for device and installation-specific ways to update the software.</li></ul>
-          </li>
-          <li><strong>Back up your world.</strong> Regularly back up the Minecraft data folder (<code>minecraft-java-data</code>) to another storage location or external drive.
-            <ul><li>That way you can recover your worlds and configuration if the device fails or storage becomes corrupted.</li></ul>
-          </li>
-          <li><strong>Hardware limits.</strong> Avoid using a personal device to host a large server.
-            <ul>
-              <li>The server described in these instructions is best used in small, local network applications with up to 10&ndash;15 players.</li>
-              <li>Limited CPU and RAM may cause lag or crashes with too many players, plugins, or mods.</li>
-            </ul>
-          </li>
-          <li><strong>License compliance.</strong> Only use the server in ways that comply with the <a href="https://www.minecraft.net/en-us/eula" target="_blank">official Minecraft license</a>.</li>
-        </ul>
+      <details id="safety" class="safety-dropdown">
+        <summary>Safety and Precautions</summary>
+        <div class="dropdown-content">
+          <ul class="content-list">
+            <li><strong>Network exposure.</strong> This setup is designed for a <strong>local network only</strong>. Exposing ports directly to the public internet without proper safeguards can compromise not just your server, but potentially all devices connected to your network.
+              <ul><li>Safe methods to connect the server to the broader internet exist, but fall outside the scope of these instructions.</li></ul>
+            </li>
+            <li><strong>Keep things updated.</strong> Keep your device's OS and Docker installation updated to reduce the likelihood of failure and vulnerability.
+              <ul><li>Refer to <a href="https://docs.docker.com/" target="_blank">Docker's online documentation</a> for device and installation-specific ways to update the software.</li></ul>
+            </li>
+            <li><strong>Back up your world.</strong> Regularly back up the Minecraft data folder (<code>minecraft-java-data</code>) to another storage location or external drive.
+              <ul><li>That way you can recover your worlds and configuration if the device fails or storage becomes corrupted.</li></ul>
+            </li>
+            <li><strong>Hardware limits.</strong> Avoid using a personal device to host a large server.
+              <ul>
+                <li>The server described in these instructions is best used in small, local network applications with up to 10&ndash;15 players.</li>
+                <li>Limited CPU and RAM may cause lag or crashes with too many players, plugins, or mods.</li>
+              </ul>
+            </li>
+            <li><strong>License compliance.</strong> Only use the server in ways that comply with the <a href="https://www.minecraft.net/en-us/eula" target="_blank">official Minecraft license</a>.</li>
+          </ul>
+        </div>
+      </details>
       </div>
     </section>
 
